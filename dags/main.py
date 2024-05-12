@@ -57,7 +57,7 @@ def extract_data():
         except (requests.RequestException, KeyError, AttributeError) as e:
             print(f"Error occurred while fetching or parsing data for link: {link}. Error: {e}")
     
-    with open('D:\Mlops_Assignment02\data\extracted_data.csv', 'w', newline='', encoding='utf-8') as csvfile:
+    with open('C:\Semester_08\MLOPS\Git_Linked_A2\20i-0867_Mlops_A2\data\extracted_data.csv', 'w', newline='', encoding='utf-8') as csvfile:
         fieldnames = ['Title', 'Description', 'Link']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
@@ -75,7 +75,7 @@ extract_data_task = PythonOperator(
 # Task 2 - Preprocessing of Data
 def preprocess_data():
     extracted_data = []
-    with open('D:\Mlops_Assignment02\data\extracted_data.csv', 'r', newline='', encoding='utf-8') as csvfile:
+    with open('C:\Semester_08\MLOPS\Git_Linked_A2\20i-0867_Mlops_A2\data\extracted_data.csv', 'r', newline='', encoding='utf-8') as csvfile:
         reader = csv.DictReader(csvfile)
         for row in reader:
             extracted_data.append({'title': row['Title'], 'description': row['Description'], 'link': row['Link']})
@@ -94,7 +94,7 @@ def preprocess_data():
             data['description'] = None
             preprocessed_data.append(data)
 
-    with open('D:\Mlops_Assignment02\data\preprocessed_data.csv', 'w', newline='', encoding='utf-8') as csvfile:
+    with open('C:\Semester_08\MLOPS\Git_Linked_A2\20i-0867_Mlops_A2\data\preprocessed_data.csv', 'w', newline='', encoding='utf-8') as csvfile:
         fieldnames = ['Title', 'Description', 'Link']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
@@ -117,7 +117,7 @@ def setup_dvc():
 
 def add_data_to_dvc():
     os.system('dvc add D:\Mlops_Assignment02\data\preprocessed_data.csv')
-    os.system('git add D:\Mlops_Assignment02\data\preprocessed_data.csv.dvc D:\Mlops_Assignment02\data\.gitignore')
+    os.system('git add C:\Semester_08\MLOPS\Git_Linked_A2\20i-0867_Mlops_A2\data\preprocessed_data.csv.dvc C:\Semester_08\MLOPS\Git_Linked_A2\20i-0867_Mlops_A2\data\.gitignore')
     os.system('git commit -m "First time commit"')
     os.system('dvc commit')
 
@@ -127,7 +127,7 @@ def push_to_remote():
 def integrate_with_git():
     os.system('git add D:\Mlops_Assignment02\.dvc/')
     os.system('git commit -m "Add DVC metafiles"')
-    subprocess.run(['git', 'remote', 'add', 'origin', 'https://github.com/Moiz-Afzal/assignment2_dvc'])
+    subprocess.run(['git', 'remote', 'add', 'origin', 'https://github.com/Abdullah_5844/assignment2_dvc'])
     subprocess.run(['git', 'branch', '-M', 'main'])
     subprocess.run(['git', 'push', '-u', 'origin', 'main'])
 
